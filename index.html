@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Push Notifications</title>
+</head>
+<body>
+    <section>
+        <form id="form">
+            <input type="text" id="user" value="user@node.com" >
+            <input type="password" id="password" value="12345678" >
+            <button type="submit">Iniciar Sesión</button>
+        </form>
+    </section>
+    <p>
+        <pre>
+            ➜  node-experience git:(feature/notifications) docker-compose exec node bash
+            node@e04d8045048f:/usr/app$ npx ts-node src/command.ts createVapID
+        </pre>
+
+        info:    BNIExsupF0ErF96F8F8pUnD0LYU1raR32gDElBKylwutHhcwT6t_0gIW8Y96aJvdZZ77_HYZKbHKEqLpeDnlqDY
+    </p>
+    <p>
+        info:    IQAbG6RpGOtIfCQxj54rzbj-oQreNh9PMV4m65fqZBo
+    </p>
+    <script src="main.js" ></script>
+</body>
+</html>
