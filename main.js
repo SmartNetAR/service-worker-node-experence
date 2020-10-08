@@ -1,4 +1,4 @@
-const PUBLIC_VAPID_KEY = 'BOYBdw5jB3oswgWTszKwLil0d_QZ4gWsQIO4hryKFcpU5fM6OmINY1uBCNAY-WfRC1908dm9Y_F4-jBApKNWYxE';
+const PUBLIC_VAPID_KEY = 'BOemK1AULurSGe9gX_mkDWmj2-TZqI93-VhoqBw2im-W97hU6QqRQycSluY0sXWyFhv_mbY4XQh5ekvByxmrg4Q';
 
 const API_BASE = 'http://localhost:8089/api';
 // const API_BASE = 'http://192.168.1.36:8089/api'; // para pruebas desde el movil
@@ -58,6 +58,7 @@ const subscribe = async () => {
             },
             body: JSON.stringify(workerSubscription)
         }
+        console.log("body", JSON.parse( option.body ));
 
         const response = await fetch(`${api}/subscription`, option);
         if (response.ok) {
@@ -75,8 +76,9 @@ const subscribe = async () => {
     }
 }
 
-const form = document.getElementById("form");
-form.addEventListener("submit", async (e) => {
+const formLogin = document.getElementById("form-login");
+const formMessage = document.getElementById("form-message");
+formLogin.addEventListener("submit", async (e) => {
 
     e.preventDefault();
     const user = document.getElementById("user");
@@ -104,6 +106,57 @@ form.addEventListener("submit", async (e) => {
             localStorage.setItem('UserData', JSON.stringify( json.data ));
 
             if (!isSubscribe) subscribe();
+        } else {
+            throw new Error("error al establecer la conexión")
+        }
+        
+    } catch (error) {
+        console.log(error);
+    }
+})
+formMessage.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+    const message = document.getElementById("message");
+
+    const api = `${API_BASE}/notifications/message`
+
+    const workerSubscription = await createWorkerSubscription();
+    console.log("workerSubscription");
+    console.log(workerSubscription);
+    
+    console.log("workerSubscriptionParsed");
+    const workerSubscriptionParsed = JSON.parse(JSON.stringify(workerSubscription));
+    console.log(workerSubscriptionParsed);
+
+    try {
+
+        const data = localStorage.getItem("UserData");
+        const userData = JSON.parse( data );
+        const token = userData.token;
+
+        const option = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer: ${token}`
+            },
+            body: JSON.stringify({
+                title: "mensaje desde el navegador",
+                message: message.value,
+                endpoint: workerSubscriptionParsed.endpoint,
+                p256dh: workerSubscriptionParsed.keys.p256dh,
+                auth: workerSubscriptionParsed.keys.auth
+            })
+        }
+
+        const response = await fetch(`${api}`, option);
+        if (response.ok) {
+
+            const json = await response.json();
+
+            console.log(json);
+
         } else {
             throw new Error("error al establecer la conexión")
         }

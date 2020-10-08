@@ -6,24 +6,22 @@
     <title>Web Push Notifications</title>
 </head>
 <body>
-    <section>
-        <form id="form">
+    <section style="padding: 15% 0 0 15%;">
+        <form id="form-login">
             <input type="text" id="user" value="user@node.com" >
             <input type="password" id="password" value="12345678" >
             <button type="submit">Iniciar Sesión</button>
         </form>
     </section>
-    <p>
-        <pre>
-            ➜  node-experience git:(feature/notifications) docker-compose exec node bash
-            node@e04d8045048f:/usr/app$ npx ts-node src/command.ts createVapID
-        </pre>
 
-        info:    BNIExsupF0ErF96F8F8pUnD0LYU1raR32gDElBKylwutHhcwT6t_0gIW8Y96aJvdZZ77_HYZKbHKEqLpeDnlqDY
-    </p>
-    <p>
-        info:    IQAbG6RpGOtIfCQxj54rzbj-oQreNh9PMV4m65fqZBo
-    </p>
+    <section style="padding: 5% 0 0 15%;">
+        <form id="form-message">
+            <input type="text" id="message" value="my push notification" >
+            <button type="submit">Enviar</button>
+        </form>
+    </section>
+
+
     <script src="main.js" ></script>
 </body>
 </html>
