@@ -56,7 +56,9 @@ const subscribe = async () => {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer: ${token}`
             },
-            body: JSON.stringify(workerSubscription)
+            body: JSON.stringify({
+                subscription: workerSubscription
+            })
         }
         console.log("body", JSON.parse( option.body ));
 
@@ -144,9 +146,7 @@ formMessage.addEventListener("submit", async (e) => {
             body: JSON.stringify({
                 title: "mensaje desde el navegador",
                 message: message.value,
-                endpoint: workerSubscriptionParsed.endpoint,
-                p256dh: workerSubscriptionParsed.keys.p256dh,
-                auth: workerSubscriptionParsed.keys.auth
+                subscription: workerSubscription
             })
         }
 
